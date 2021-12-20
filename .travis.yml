@@ -1,10 +1,8 @@
 language: python
 python:
-  - 3.6
-  - 3.7
   - 3.8
+  - 3.9
 env:
-  - DJANGO=2.2.20
   - DJANGO=3.0.14
   - DJANGO=3.1.8
   - DJANGO=3.2
@@ -13,7 +11,3 @@ install:
   - pip install -q Django==$DJANGO
 script:
   - DJANGO_SETTINGS_MODULE=suit.tests.settings django-admin test suit
-matrix:
-  exclude:
-    - python: 2.7
-      env: DJANGO=2.2.20
