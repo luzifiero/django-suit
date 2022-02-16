@@ -68,4 +68,3 @@ var dev = gulp.parallel(
 exports.default = gulp.series(generateStyles, dev)
 exports["build"] = generateStyles
 exports["dev"] = dev
-
