@@ -105,7 +105,7 @@ class CountryAdmin(RelatedFieldAdmin):
             {
                 "classes": ("suit-tab suit-tab-general",),
                 "description": "AutosizedTextarea widget example - adapts height "
-                               "based on user input",
+                "based on user input",
                 "fields": ["description"],
             },
         ),
@@ -383,6 +383,7 @@ def showcase_custom_view_example(request, pk):
     messages.success(request, 'Something legendary was done to "%s"' % instance)
 
     return redirect("admin:demo_showcase_change", pk)
+
 
 #
 # class LargeFilterHorizontalForm(ModelForm):
