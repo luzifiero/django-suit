@@ -24,17 +24,16 @@ admin.autodiscover()
 admin.site.enable_nav_sidebar = False
 
 urlpatterns = [
-
     # Django Suit custom admin view
-    re_path(r'^admin/custom/$', views.custom_admin_view),
-
-    re_path(r'^admin/', admin.site.urls),
-
+    re_path(r"^admin/custom/$", views.custom_admin_view),
+    re_path(r"^admin/", admin.site.urls),
     # Django-Select2
-    re_path(r'^select2/', include('django_select2.urls')),
-
+    re_path(r"^select2/", include("django_select2.urls")),
     # Documentation url for menu documentation link
-    re_path(r'^admin/custom2/', RedirectView.as_view(url='http://djangosuit.com/support/'), name='django-admindocs-docroot'),
-
-    re_path(r'^$', views.home, name='home'),
+    re_path(
+        r"^admin/custom2/",
+        RedirectView.as_view(url="http://djangosuit.com/support/"),
+        name="django-admindocs-docroot",
+    ),
+    re_path(r"^$", views.home, name="home"),
 ]
