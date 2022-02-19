@@ -7,7 +7,6 @@
 docs/_build/
 /build
 /dist/
-/bower_components/
 /node_modules/
 /env/
 /package-lock.json

@@ -9,11 +9,10 @@
   "ignore": [
     "**/.*",
     "node_modules",
-    "bower_components",
     "test",
     "tests"
   ],
   "devDependencies": {
-    "bootstrap": "v4.5.3"
+    "bootstrap": "v5.1.3"
   }
 }
