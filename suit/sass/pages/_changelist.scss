@@ -8,7 +8,7 @@ $filter-col-width: 15rem;
   &.filtered {
     clear: both;
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
 
     #toolbar {
       flex: 10;
@@ -19,6 +19,7 @@ $filter-col-width: 15rem;
       &:not(:empty) {
         flex-basis: 15rem;
         order: 3;
+        flex-shrink: 0;
       }
 
       &:empty {
