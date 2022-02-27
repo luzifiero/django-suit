@@ -41,3 +41,9 @@
   white-space: nowrap;
   overflow: hidden;
 }
+
+@media print {
+    #header, #footer, #changelist-filter, #toolbar, .paginator, .actions, .breadcrumbs, .sortoptions {
+        display: none !important;
+    }
+}
