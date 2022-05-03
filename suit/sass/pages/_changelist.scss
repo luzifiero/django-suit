@@ -158,7 +158,7 @@ $filter-col-width: 15rem;
       span.question {
         font-size: 13px;
         margin: 0 0.5em;
-        display: none;
+        //display: none;
       }
     }
 
@@ -181,6 +181,7 @@ $filter-col-width: 15rem;
     .paginator {
       margin-top: 1rem;
       font-size: $font-size-sm;
+      margin-bottom: 3rem;
 
       a:not(.showall), span {
         font-size: 1rem;

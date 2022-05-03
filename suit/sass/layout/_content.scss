@@ -7,7 +7,7 @@ body.change-form {
 }
 
 #changelist-filter {
-  display:none;
+  //display:none;
 }
 
 #changelist .changelist-form-container {
@@ -48,6 +48,7 @@ body.change-list, body.change-form {
     }
 
     flex-basis: 100%;
+    margin-bottom: 3rem;
 
     > h1 {
       flex-basis: 100%;
