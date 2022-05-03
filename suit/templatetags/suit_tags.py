@@ -33,14 +33,14 @@ def suit_body_class(value, request):
                 if isinstance(suit_conf_param, bool)
                 else "_".join((each, suit_conf_param))
             )
-            css_classes.append("suit_%s" % value)
+            css_classes.append(f"suit_{value}")
     return " ".join(css_classes)
 
 
 @simple_tag
 def suit_conf_value(name, model_admin=None):
     if model_admin:
-        value_by_ma = getattr(model_admin, "suit_%s" % name.lower(), None)
+        value_by_ma = getattr(model_admin, f"suit_{name.lower()}", None)
         if value_by_ma in ("center", "right"):
             config.set_config_value(name, value_by_ma)
         else:

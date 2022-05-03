@@ -190,7 +190,7 @@ class SortableModelAdmin(SortableModelAdminBase, admin.ModelAdmin):
         if not obj.pk:
             max_order = obj.__class__.objects.aggregate(models.Max(self.sortable))
             try:
-                next_order = max_order["%s__max" % self.sortable] + 1
+                next_order = max_order[f"{self.sortable}__max"] + 1
             except TypeError:
                 next_order = 1
             setattr(obj, self.sortable, next_order)

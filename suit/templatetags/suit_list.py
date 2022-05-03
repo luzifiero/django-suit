@@ -38,7 +38,7 @@ def result_row_attrs(context, cl, row_index):
     if "class" in new_attrs:
         attrs["class"] += " " + new_attrs.pop("class")
 
-    attrs.update(new_attrs)
+    attrs |= new_attrs
     return dict_to_attrs(attrs)
 
 
@@ -112,7 +112,7 @@ def cells_handler(results, cl):
             # Merge 'class' attribute
             if class_pattern in item.split(">")[0] and "class" in attrs:
                 css_class = attrs.pop("class")
-                replacement = "%s%s " % (class_pattern, css_class)
+                replacement = f"{class_pattern}{css_class} "
                 result[col] = mark_safe(item.replace(class_pattern, replacement))
 
             # Add rest of attributes if any left
@@ -139,7 +139,7 @@ def suit_search_form(context, cl):
         "cl": cl,
         "show_result_count": cl.result_count != cl.full_result_count,
         "search_var": SEARCH_VAR,
-        "perms": context.get("perms", None),
+        "has_add_permission": cl.model_admin.has_add_permission(context.request),
     }
 
 
@@ -174,7 +174,7 @@ def suit_admin_list_filter(cl, spec):
                 choice["name"] = key
                 choice["val"] = value
             else:
-                choice["additional"] = "%s=%s" % (key, value)
+                choice["additional"] = f"{key}={value}"
     return tpl.render(
         {
             "field_name": field_key,

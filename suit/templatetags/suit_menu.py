@@ -35,15 +35,15 @@ def get_menu(context, request):
         # Django 1.8 on app index only
         available_apps = context.get("app_list")
 
-    # Django 1.8 on rest of the pages
-    if not available_apps:
-        try:
-            from django.contrib import admin
+        # Django 1.8 on rest of the pages
+        if not available_apps:
+            try:
+                from django.contrib import admin
 
-            template_response = get_admin_site(request.current_app).index(request)
-            available_apps = template_response.context_data["app_list"]
-        except Exception:
-            pass
+                template_response = get_admin_site(request.current_app).index(request)
+                available_apps = template_response.context_data["app_list"]
+            except Exception:
+                pass
 
     if not available_apps:
         logging.warn("Django Suit was unable to retrieve apps list for menu.")
@@ -58,7 +58,7 @@ def get_admin_site(current_app):
     in func_closer dict in index() func returned by resolver.
     """
     try:
-        resolver_match = resolve(reverse("%s:index" % current_app))
+        resolver_match = resolve(reverse(f"{current_app}:index"))
         # Django 1.9 exposes AdminSite instance directly on view function
         if hasattr(resolver_match.func, "admin_site"):
             return resolver_match.func.admin_site

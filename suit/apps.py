@@ -40,7 +40,7 @@ class DjangoSuitConfig(AppConfig):
     list_per_page = 20
 
     # Show changelist top actions only if any row is selected
-    toggle_changelist_top_actions = True
+    toggle_changelist_top_actions = False
 
     # Define menu
     #: :type: list of suit.menu.ParentItem
@@ -98,8 +98,7 @@ class DjangoSuitConfig(AppConfig):
         """
         Override some ModelAdmin defaults
         """
-        if self.toggle_changelist_top_actions:
-            ModelAdmin.actions_on_top = True
+        ModelAdmin.actions_on_top = bool(self.toggle_changelist_top_actions)
         ModelAdmin.actions_on_bottom = True
 
         if self.list_per_page:

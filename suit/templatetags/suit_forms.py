@@ -18,8 +18,8 @@ def get_form_size(fieldset):
     form_size_by_model_admin = getattr(fieldset.model_admin, "suit_form_size", {})
 
     form_size = {}
-    form_size.update(form_size_by_config)
-    form_size.update(form_size_by_model_admin)
+    form_size |= form_size_by_config
+    form_size |= form_size_by_model_admin
 
     return form_size
 
@@ -31,7 +31,6 @@ def get_form_class(field, fieldset, idx):
     if not form_size:
         raise Exception('"form_size" parameter must be set in Django Suit config')
 
-    # Try field config first
     if not field_class:
         if form_size_fields := form_size.get("fields"):
             field_name = None
@@ -45,7 +44,7 @@ def get_form_class(field, fieldset, idx):
 
     # Add widgets CSS class
     if idx == 1:
-        extra_class = " %s" % suit_form_field_widget_class(field)
+        extra_class = f" {suit_form_field_widget_class(field)}"
 
     # Try widgets config
     widget_class_name = get_field_widget_class_name(field)
@@ -99,7 +98,7 @@ def suit_form_field_widget_class(field):
     Get CSS class for field by widget name, for easier styling
     """
     if widget_class_name := get_field_widget_class_name(field):
-        return "widget-%s" % widget_class_name
+        return f"widget-{widget_class_name}"
     return ""
 
 
@@ -112,7 +111,7 @@ def suit_form_conf(context, param_name, inline_admin_formset=None):
         model_admin = inline_admin_formset.opts
     else:
         model_admin = context["adminform"].model_admin
-    param_by_model_admin = getattr(model_admin, "suit_%s" % param_name, None)
+    param_by_model_admin = getattr(model_admin, f"suit_{param_name}", None)
     if param_by_model_admin is not None:
         return param_by_model_admin
     return get_config(param_name, context["request"])
