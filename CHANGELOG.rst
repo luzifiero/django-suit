@@ -161,7 +161,7 @@ v0.1.8 (2013-03-20)
 * [Feature] `Full-width fieldsets <http://django-suit.readthedocs.org/en/develop/widgets.html#css-goodies>`_
 * [Feature] Introduced two related wysiwyg apps `suit-redactor <https://github.com/darklow/django-suit-redactor>`_ and `suit-ckeditor <https://github.com/darklow/django-suit-ckeditor>`_
 * [CSS] New "multi-fields in row" look and behaviour.
-* [CSS] Support for fieldset "wide" class 
+* [CSS] Support for fieldset "wide" class
 * [Refactor] Major fieldset refactoring to support multi-line labels
 * [Fix] Many CSS/Templating fixes and tweaks. See commit log for full changes
 

@@ -5,4 +5,3 @@ django.jQuery = jQuery.noConflict(true);
 // Make jQuery global - needed for Django-Select2
 if (!window.jQuery)
     window.$ = window.jQuery = django.jQuery;
-

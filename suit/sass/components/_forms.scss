@@ -20,45 +20,54 @@ fieldset {
     float: left;
     padding-right: 2rem;
   }
+
   > .description {
     font-size: $font-size-sm;
     padding-top: .35rem;
     display: inline-block;
     @extend .text-muted;
   }
+
   // Clear float
   h2 + .description + *, .inline-related {
     clear: both;
   }
+
   .form-row:not(.form-group):not(tr) {
     display: flex;
     background-color: $form-bg;
+
     &:last-child {
       > label:not(.form-control-label) {
         border-bottom: 0;
       }
     }
+
     // Since content after label is not wrapped in container
     // we must fake padding for input
     padding: $suit-form-padding-vertical $suit-form-padding-horizontal;
-    @include media-breakpoint-down(xs) {
+    @include media-breakpoint-down(sm) {
       flex-wrap: wrap;
     }
+
     > * {
       align-self: flex-start;
     }
+
     > label:not(.form-control-label) {
       @extend .col-sm-2;
       align-self: stretch;
       margin: (-$suit-form-padding-vertical) $suit-form-padding-horizontal (-$suit-form-padding-vertical) (-$suit-form-padding-horizontal);
+
       &.required {
         padding-right: 1.5rem;
       }
-      @include media-breakpoint-down(sm) {
+
+      @include media-breakpoint-down(md) {
         // Use as .col-sm-3
         flex: 0 0 25%;
       }
-      @include media-breakpoint-down(xs) {
+      @include media-breakpoint-down(sm) {
         flex: 0 0 100%;
       }
     }
@@ -70,6 +79,7 @@ fieldset {
   fieldset:not(.suit-form):not(.module) {
     box-shadow: none;
   }
+
   .card:last-child {
     margin-bottom: 0;
   }
@@ -83,12 +93,14 @@ fieldset {
     margin-top: .5rem;
     display: block;
   }
+
   // Help text right after checkbox only (User permissions for example)
   input[type="checkbox"] + .text-help,
   .form-inline .text-help {
     display: inline;
     margin-left: .5rem;
   }
+
   .form-inline {
     .text-help {
       display: inline-block;
@@ -100,8 +112,10 @@ fieldset {
 fieldset {
   .form-row, .suit-form .form-group {
     clear: both;
+
     label {
       font-size: $font-size-sm;
+
       &.required {
         &:after {
           content: '*';
@@ -111,6 +125,7 @@ fieldset {
         }
       }
     }
+
     > label {
       margin: 0;
       line-height: 1.25rem;
@@ -119,27 +134,30 @@ fieldset {
       padding-top: $suit-label-padding-top;
       padding-bottom: $suit-label-padding-bottom;
       border-bottom: 1px solid $form-border-color;
-      @include media-breakpoint-down(xs) {
-        padding-top: $suit-label-padding-top/2;
+      @include media-breakpoint-down(sm) {
+        padding-top: $suit-label-padding-top*0.5;
         background-color: transparent;
         text-align: left;
         font-weight: bold;
         border-bottom: none;
       }
     }
+
     &.has-danger {
       display: flex !important;
     }
+
     &:last-child {
       > label {
         border-bottom: none;
       }
     }
+
     > ul, .errorlist {
       margin: 0;
       padding-left: 2rem;
       font-size: $font-size-xs;
-      @include media-breakpoint-down(xs) {
+      @include media-breakpoint-down(sm) {
         margin-top: .5rem;
         padding-left: 1.5rem;
       }
@@ -149,32 +167,36 @@ fieldset {
 
 // Errors
 .errornote {
-    background-position: 100% 12px;
-    padding: 10px 12px;
+  background-position: 100% 12px;
+  padding: 10px 12px;
 }
+
 ul.errorlist {
   margin: 0;
   padding-left: 1.5rem;
   font-size: $font-size-xs;
   color: $brand-danger;
 }
+
 ul.errorlist li {
-    font-size: $font-size-xs;
-    display: block;
-    margin-bottom: 4px;
+  font-size: $font-size-xs;
+  display: block;
+  margin-bottom: 4px;
 }
+
 ul.errorlist li:first-child {
-    margin-top: 0;
+  margin-top: 0;
 }
 
 ul.errorlist li a {
-    color: inherit;
-    text-decoration: underline;
+  color: inherit;
+  text-decoration: underline;
 }
+
 .suit-form {
   .form-group.errors {
     input, select {
-        border-color: $brand-danger;
+      border-color: $brand-danger;
     }
   }
 }
@@ -185,34 +207,41 @@ ul.errorlist li a {
   .form-group {
     margin: 0;
     background-color: $form-bg;
-    @include media-breakpoint-down(xs) {
+    @include media-breakpoint-down(sm) {
       padding-bottom: 1rem;
     }
+
     label {
       margin: 0;
+
       &.required {
         padding-right: .55rem;
       }
     }
+
     .form-control-label + div[class*='col-'] {
       padding-top: $suit-form-padding-vertical;
       padding-bottom: $suit-form-padding-vertical;
-      @include media-breakpoint-down(xs) {
+      @include media-breakpoint-down(sm) {
         padding-top: 0;
       }
     }
+
     p.form-control-plaintext {
       margin: 0;
     }
+
     // More spacing for first and last rows
     &:first-child {
       .form-control-label {
         padding-top: $suit-label-padding-top + $suit-padding-first-extra;
       }
+
       .form-control-label + div[class*='col-'] {
         padding-top: $suit-form-padding-vertical + $suit-padding-first-extra;
       }
     }
+
     &:last-child {
       .form-control-label + div[class*='col-'] {
         padding-bottom: $suit-form-padding-vertical + $suit-padding-first-extra;
@@ -227,31 +256,34 @@ ul.errorlist li a {
   padding-bottom: 0 !important;
   display: flex;
   flex-wrap: wrap;
-  @include media-breakpoint-down(xs) {
+  @include media-breakpoint-down(sm) {
     padding-top: 0 !important;
   }
+
   .multi-field {
     flex-basis: 15rem;
     white-space: nowrap;
     margin-bottom: $suit-form-padding-vertical;
     padding-right: 1rem;
-    @include media-breakpoint-down(xs) {
+    @include media-breakpoint-down(sm) {
       flex-basis: 100%;
       padding-bottom: 0;
     }
+
     .form-control-label {
       vertical-align: top;
       display: inline-block;
       padding-top: $suit-form-padding-vertical !important;
       padding-left: 0;
-      padding-right: $suit-form-padding-horizontal / 2;
+      padding-right: $suit-form-padding-horizontal * 0.5;
       @include media-breakpoint-up(sm) {
         padding-bottom: 0;
       }
-      @include media-breakpoint-down(xs) {
+      @include media-breakpoint-down(sm) {
         font-weight: bold;
       }
     }
+
     .multi-field-content {
       display: inline-block;
       @include media-breakpoint-up(sm) {
@@ -261,7 +293,8 @@ ul.errorlist li a {
         }
       }
     }
-    @include media-breakpoint-down(xs) {
+
+    @include media-breakpoint-down(sm) {
       .form-control-label, .multi-field-content {
         display: block;
       }
@@ -279,9 +312,11 @@ fieldset {
     background-color: $form-bg;
     margin-top: -1rem;
     overflow: hidden;
+
     > * {
       display: none;
     }
+
     h2 {
       display: block;
       font-size: $font-size-h5;
@@ -290,6 +325,7 @@ fieldset {
       padding: .5rem 1rem;
     }
   }
+
   &.collapse {
     display: block;
   }
@@ -317,27 +353,32 @@ fieldset {
           padding: $table-th-padding;
         }
       }
+
       th, td {
         font-size: $font-size-base;
       }
+
       tbody {
         td {
           &.original {
             p {
               margin: 0;
               @extend .form-control-plaintext;
+
               a {
                 float: right;
                 font-size: $font-size-xs;
               }
             }
           }
+
           .errorlist {
             margin: 0;
             padding-left: 1.5rem;
             font-size: $font-size-xs;
             color: $brand-danger;
           }
+
           .errorlist + input {
             border-color: $brand-danger;
           }
@@ -355,11 +396,13 @@ fieldset {
                 padding: 0;
                 border-color: transparent;
                 box-shadow: none;
+
                 > * {
                   display: none;
                 }
               }
             }
+
             th.original:empty + th {
               box-shadow: none;
             }
@@ -367,10 +410,12 @@ fieldset {
         }
       }
     }
+
     fieldset {
       box-shadow: none;
     }
   }
+
   // Stacked
   .inline-related {
     h3 {
@@ -380,35 +425,44 @@ fieldset {
       padding: $table-th-padding;
       font-weight: normal;
       background-color: $inverse-lightest;
+
       b {
         display: inline-block;
         min-width: 17.5%;
       }
+
       a {
         color: #fff;
         text-decoration: underline;
+
         &.inline-deletelink {
           float: right;
         }
       }
+
       label {
         margin: 0;
       }
+
       span.delete, span:not(.inline_label):not(:first-child) {
         float: right;
       }
+
       .stacked-inline-sortable {
         float: right;
         margin-left: 1.5rem;
       }
     }
+
     fieldset.suit-form {
       margin-bottom: 1rem;
     }
   }
+
   .inline-related + .empty-form + .add-row {
     margin-top: -1rem;
   }
+
   div.add-row {
     border-top: 2px solid $body-bg;
     margin-bottom: 2rem;
@@ -417,7 +471,7 @@ fieldset {
   }
 }
 
-.custom-select-sm {
+.form-select-sm {
   $select-border-width: ($border-width * 2);
   height: calc(#{$input-height} - #{$select-border-width} - 5px);
 }

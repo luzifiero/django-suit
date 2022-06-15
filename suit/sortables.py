@@ -1,19 +1,24 @@
-from copy import deepcopy, copy
+from copy import copy, deepcopy
+
 from django.contrib import admin
 from django.contrib.admin.views.main import ChangeList
-from django.contrib.contenttypes.admin import GenericTabularInline, GenericStackedInline
-from django.forms import ModelForm, NumberInput
+from django.contrib.contenttypes.admin import GenericStackedInline, GenericTabularInline
 from django.db import models
+from django.forms import ModelForm, NumberInput
 
 
 class SortableModelAdminBase(object):
     """
     Base class for SortableTabularInline and SortableModelAdmin
     """
-    sortable = 'order'
+
+    sortable = "order"
 
     class Media:
-        js = ('admin/js/jquery.init.js', 'suit/js/suit.sortables.js',)
+        js = (
+            "admin/js/jquery.init.js",
+            "suit/js/suit.sortables.js",
+        )
 
 
 class SortableListForm(ModelForm):
@@ -22,10 +27,7 @@ class SortableListForm(ModelForm):
     """
 
     class Meta:
-        widgets = {
-            'order': NumberInput(
-                attrs={'class': 'd-none suit-sortable'})
-        }
+        widgets = {"order": NumberInput(attrs={"class": "d-none suit-sortable"})}
 
 
 class SortableChangeList(ChangeList):
@@ -35,7 +37,7 @@ class SortableChangeList(ChangeList):
 
     def get_ordering(self, request, queryset):
         if self.model_admin.sortable_is_enabled():
-            return [self.model_admin.sortable, '-' + self.model._meta.pk.name]
+            return [self.model_admin.sortable, f"-{self.model._meta.pk.name}"]
         return super(SortableChangeList, self).get_ordering(request, queryset)
 
 
@@ -54,17 +56,17 @@ class SortableTabularInlineBase(SortableModelAdminBase):
 
     def formfield_for_dbfield(self, db_field, **kwargs):
         if db_field.name == self.sortable:
-            kwargs['widget'] = SortableListForm.Meta.widgets['order']
+            kwargs["widget"] = SortableListForm.Meta.widgets["order"]
         return super(SortableTabularInlineBase, self).formfield_for_dbfield(
-            db_field, **kwargs)
+            db_field, **kwargs
+        )
 
 
 class SortableTabularInline(SortableTabularInlineBase, admin.TabularInline):
     pass
 
 
-class SortableGenericTabularInline(SortableTabularInlineBase,
-                                   GenericTabularInline):
+class SortableGenericTabularInline(SortableTabularInlineBase, GenericTabularInline):
     pass
 
 
@@ -83,7 +85,9 @@ class SortableStackedInlineBase(SortableModelAdminBase):
         Remove sortable from every other fieldset, if by some reason someone
         has added it
         """
-        fieldsets = super(SortableStackedInlineBase, self).get_fieldsets(*args, **kwargs)
+        fieldsets = super(SortableStackedInlineBase, self).get_fieldsets(
+            *args, **kwargs
+        )
 
         sortable_added = False
         for fieldset in fieldsets:
@@ -91,7 +95,7 @@ class SortableStackedInlineBase(SortableModelAdminBase):
                 if not line or not isinstance(line, dict):
                     continue
 
-                fields = line.get('fields')
+                fields = line.get("fields")
                 if self.sortable in fields:
                     fields.remove(self.sortable)
 
@@ -105,18 +109,19 @@ class SortableStackedInlineBase(SortableModelAdminBase):
 
     def formfield_for_dbfield(self, db_field, **kwargs):
         if db_field.name == self.sortable:
-            kwargs['widget'] = deepcopy(SortableListForm.Meta.widgets['order'])
-            kwargs['widget'].attrs['class'] += ' suit-sortable-stacked'
-            kwargs['widget'].attrs['rowclass'] = ' suit-sortable-stacked-row'
-        return super(SortableStackedInlineBase, self).formfield_for_dbfield(db_field, **kwargs)
+            kwargs["widget"] = deepcopy(SortableListForm.Meta.widgets["order"])
+            kwargs["widget"].attrs["class"] += " suit-sortable-stacked"
+            kwargs["widget"].attrs["rowclass"] = " suit-sortable-stacked-row"
+        return super(SortableStackedInlineBase, self).formfield_for_dbfield(
+            db_field, **kwargs
+        )
 
 
 class SortableStackedInline(SortableStackedInlineBase, admin.StackedInline):
     pass
 
 
-class SortableGenericStackedInline(SortableStackedInlineBase,
-                                   GenericStackedInline):
+class SortableGenericStackedInline(SortableStackedInlineBase, GenericStackedInline):
     pass
 
 
@@ -141,16 +146,14 @@ class SortableModelAdmin(SortableModelAdminBase, admin.ModelAdmin):
         """
         Prepare Meta class with order field widget
         """
-        if not getattr(form, 'Meta', None):
+        if not getattr(form, "Meta", None):
             form.Meta = SortableListForm.Meta
-        if not getattr(form.Meta, 'widgets', None):
+        if not getattr(form.Meta, "widgets", None):
             form.Meta.widgets = {}
-        form.Meta.widgets[self.sortable] = SortableListForm.Meta.widgets[
-            'order']
+        form.Meta.widgets[self.sortable] = SortableListForm.Meta.widgets["order"]
 
     def get_changelist_form(self, request, **kwargs):
-        form = super(SortableModelAdmin, self).get_changelist_form(request,
-                                                                   **kwargs)
+        form = super(SortableModelAdmin, self).get_changelist_form(request, **kwargs)
         self.merge_form_meta(form)
         return form
 
@@ -185,10 +188,9 @@ class SortableModelAdmin(SortableModelAdminBase, admin.ModelAdmin):
 
     def save_model(self, request, obj, form, change):
         if not obj.pk:
-            max_order = obj.__class__.objects.aggregate(
-                models.Max(self.sortable))
+            max_order = obj.__class__.objects.aggregate(models.Max(self.sortable))
             try:
-                next_order = max_order['%s__max' % self.sortable] + 1
+                next_order = max_order[f"{self.sortable}__max"] + 1
             except TypeError:
                 next_order = 1
             setattr(obj, self.sortable, next_order)

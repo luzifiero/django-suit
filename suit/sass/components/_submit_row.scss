@@ -1,25 +1,32 @@
+@use "sass:math";
+
 .submit-row {
   .deletelink-box {
     float: right;
     margin: 0;
+
     .deletelink {
       @extend .btn;
       @extend .btn-outline-danger;
     }
   }
+
   input[type='submit'], input[type='button'], button, .btn {
     margin-bottom: .5rem;
   }
+
   input[type='submit'], input[type='button'], button {
     &:not([class*="btn-"]) {
       @extend .btn;
       @extend .btn-lg;
       @extend .btn-secondary;
+
       &:first-child {
         @extend .btn-primary;
       }
     }
   }
+
   &.fixed {
     position: fixed;
     left: 0;
@@ -31,11 +38,12 @@
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.15);
   }
 }
+
 body.suit_form_submit_on_right .col-right {
   .submit-row {
     @include media-breakpoint-up(lg) {
       position: relative;
-      padding: $grid-gutter-width-base/2;
+      padding: $grid-gutter-width-base*0.5;
       background-color: $form-bg;
       display: flex;
       flex-wrap: wrap;
@@ -49,20 +57,22 @@ body.suit_form_submit_on_right .col-right {
       }
       .deletelink-box {
         text-align: right;
-        margin-top: $grid-gutter-width-base/2;
+        margin-top: $grid-gutter-width-base*0.5;
         order: 10;
       }
     }
   }
+
   .object-tools {
     @include reset-list();
     margin-top: $grid-gutter-width-base;
     //padding: $grid-gutter-width/2;
-    @include media-breakpoint-down(md) {
+    @include media-breakpoint-down(lg) {
       display: none;
       li {
         display: inline-block;
         margin-right: 10px;
+
         &.heading {
           display: block;
           font-weight: bold;
@@ -75,28 +85,32 @@ body.suit_form_submit_on_right .col-right {
           display: block;
           margin-top: 1px;
           background-color: $form-bg;
-          padding: $grid-gutter-width-base/3 $grid-gutter-width-base/2;
+          padding: math.div($grid-gutter-width-base, 3) $grid-gutter-width-base*0.5;
           @include suit-box-shadow();
         }
+
         &:not(.list-item) a {
           &:hover {
             text-decoration: none;
             background-color: #fff;
           }
+
           .fa {
             margin-right: .2rem;
           }
         }
+
         &.heading {
           @include text-semibold();
           font-size: $font-size-lg;
-          padding: 0 $grid-gutter-width-base/3 $grid-gutter-width-base/4;
+          padding: 0 math.div($grid-gutter-width-base, 3) $grid-gutter-width-base*0.25;
+
           &.heading-inverse {
             background-color: $inverse-lightest;
             color: #fff;
             font-weight: normal;
             font-size: $font-size-base;
-            padding: $grid-gutter-width-base/4 $grid-gutter-width-base/3;
+            padding: $grid-gutter-width-base*0.25 math.div($grid-gutter-width-base, 3);
           }
         }
       }

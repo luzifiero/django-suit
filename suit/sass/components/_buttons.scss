@@ -2,6 +2,7 @@
 .btn-round {
   border-radius: 40px;
 }
+
 @mixin btn-mixin($state, $icon: none, $size: none, $round: false) {
   display: inline-block;
   @extend .btn;
